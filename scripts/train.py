@@ -56,8 +56,8 @@ for epoch in range(args.n_epochs):
     for i, batch in enumerate(train_dataloader):
         real_A = batch["A"].to(device)
         real_B = batch["B"].to(device)
-        real_label = Variable(torch.Tensor(args.batch_size,1).fill_(float(1)), requires_grad=False).to(device)
-        fake_label = Variable(torch.Tensor(arg.batch_size,1).fill_(float(0)), requires_grad=False).to(device)
+        real_label = Variable(torch.ones(args.batch_size,*D_A.out_shape), requires_grad=False).to(device)
+        fake_label = Variable(torch.zeros(args.batch_size,*D_A.out_shape), requires_grad=False).to(device)
         
         #train generators
         optimizer_G.zero_grad()
@@ -65,7 +65,7 @@ for epoch in range(args.n_epochs):
         fake_B = G(real_A)       
         loss_GAN = criterion_GAN(D_A(fake_A), real_label) + criterion_GAN(D_B(fake_B), real_label)
         loss_cycle = criterion_cycle(real_A, F(fake_B)) + criterion_cycle(real_B, G(fake_A))
-        loss_gen = loss_GAN + loss_cycle * arg.lambda
+        loss_gen = loss_GAN + loss_cycle * args.lambda
         loss_gen.backward()
         optimizer_G.step()
 
