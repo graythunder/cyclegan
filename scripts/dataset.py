@@ -7,7 +7,8 @@ import torch.utils.data as data
 from torchvision import transforms
 
 class MyDataset(data.Dataset):
-    def __init__(self, datadir=os.path.join(os.getcwd(), "..", "data"), dataname="zebra2horse", phase="train"):
+    def __init__(self, datadir=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data"), 
+        dataname="zebra2horse", phase="train"):
         super().__init__()
         
         self.dir_path = os.path.join(datadir, dataname)
@@ -27,7 +28,7 @@ class MyDataset(data.Dataset):
             
         transform_ops.extend([
             transforms.ToTensor(),
-        #     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
         ])
         
         self.transformer = transforms.Compose(transform_ops)
