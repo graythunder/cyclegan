@@ -51,7 +51,7 @@ class ResidualBlock(nn.Module):
         h = self.conv1(h)
         h = self.norm1(h)
         h = self.relu1(h)
-        h = self.refpad2(x)
+        h = self.refpad2(h)
         h = self.conv2(h)
         h = self.norm2(h)
         y = self.relu2(x + h)

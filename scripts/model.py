@@ -23,6 +23,7 @@ class Generator(nn.Module):
         layers.append(UpsampleLayer(256, 128))
         layers.append(UpsampleLayer(128, 64))
         layers.append(InitialLayer(64, 3))
+        layers.append(nn.Tanh())
         self.model = nn.Sequential(*layers)
     
     def forward(self, x):

@@ -2,6 +2,7 @@ import os, sys
 from pathlib import Path
 from PIL import Image
 import random
+import numpy as np
 import torch
 import torch.utils.data as data
 from torchvision import transforms
@@ -41,8 +42,12 @@ class MyDataset(data.Dataset):
         pathB = self.imageB_paths[random.randint(0, len(self.imageB_paths) - 1)]
         
         imageA = Image.open(pathA)
+        if imageA.mode != 'RGB':
+            imageA = imageA.convert('RGB')
         imageA = self.transformer(imageA)
         imageB = Image.open(pathB)
+        if imageB.mode != 'RGB':
+            imageB = imageB.convert('RGB')
         imageB = self.transformer(imageB)
 
         return {"A": imageA, "B": imageB}
