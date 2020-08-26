@@ -5,3 +5,4 @@ scripts/*.ipynb
 data/*/
 log/*.log
 images/*
+saved_model/*
